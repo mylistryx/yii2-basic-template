@@ -2,7 +2,10 @@
 
 namespace app\models;
 
-class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
+use yii\base\BaseObject;
+use yii\web\IdentityInterface;
+
+class Identity extends BaseObject implements IdentityInterface
 {
     public $id;
     public $username;
@@ -56,7 +59,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername($username): ?Identity
     {
         foreach (self::$users as $user) {
             if (strcasecmp($user['username'], $username) === 0) {
