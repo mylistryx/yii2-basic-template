@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Yii console bootstrap file.
+ */
+
+use yii\console\Application;
+
+defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_ENV') or define('YII_ENV', 'dev');
+
+require 'vendor/autoload.php';
+require 'vendor/yiisoft/yii2/Yii.php';
+require 'config/bootstrap.php';
+
+$config = yii\helpers\ArrayHelper::merge(
+    require 'config/main.php',
+    require 'config/main-local.php',
+    require 'config/console.php',
+    require 'config/console-local.php'
+);
+
+$application = new Application($config);
+$exitCode = $application->run();
+exit($exitCode);
