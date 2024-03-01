@@ -3,7 +3,10 @@
 namespace app\components\controllers;
 
 use Yii;
+use yii\base\Model;
+use yii\db\ActiveRecord;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 abstract class WebController extends Controller
@@ -182,5 +185,19 @@ abstract class WebController extends Controller
         $this->addFlash('dark', $message, $category, $params, $removeAfterAccess);
 
         return $this;
+    }
+
+  /**
+   * @param string $className
+   * @param int $id
+   * @return ActiveRecord
+   * @throws NotFoundHttpException
+   */
+    protected function findModel(string $className, int $id): ActiveRecord
+    {
+      /**
+       * @var ActiveRecord $className
+       */
+      return $className::findOne($id) ?? throw new NotFoundHttpException();
     }
 }
