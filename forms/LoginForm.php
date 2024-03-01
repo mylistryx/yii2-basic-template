@@ -49,10 +49,12 @@ class LoginForm extends Model
 
     public function getIdentity(): ?Identity
     {
-        if ($this->_identity === false) {
-            $this->_identity = Identity::findByUsername($this->username);
-        }
+      static $identity = false;
 
-        return $this->_identity;
+      if ($identity === false) {
+          $identity = Identity::findByUsername($this->username);
+      }
+
+      return $identity;
     }
 }
