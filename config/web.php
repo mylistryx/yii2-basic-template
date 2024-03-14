@@ -1,5 +1,6 @@
 <?php
 
+use app\components\user\WebUser;
 use app\models\Identity;
 use yii\caching\FileCache;
 use yii\debug\Module as DebugModule;
@@ -26,8 +27,10 @@ $config = [
             'class' => FileCache::class,
         ],
         'user'         => [
+            'class'           => WebUser::class,
             'identityClass'   => Identity::class,
             'enableAutoLogin' => true,
+            'loginUrl'        => ['/site/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

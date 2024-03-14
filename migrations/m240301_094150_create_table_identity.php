@@ -15,43 +15,15 @@ class m240301_094150_create_table_identity extends Migration
     public function safeUp()
     {
         $this->createTable($this->tableName, [
-          'id' => $this->primaryKey(),
-          'email' => $this->integer()->null(),
-          'created_at' => $this->dateTime()->notNull(),
+            'id'            => $this->primaryKey(),
+            'email'         => $this->integer()->notNull()->unique(),
+            'username'      => $this->string()->notNull()->unique(),
+            'auth_key'      => $this->string(32)->notNull(),
+            'password_hash' => $this->string()->notNull(),
+            'status'        => $this->integer()->notNull()->defaultValue(0),
+            'created_at'    => $this->dateTime()->notNull(),
+            'updated_at'    => $this->dateTime()->notNull(),
         ]);
-
-        $this->addForeignKey(
-          'FK_Comment_ParentId__Comment_Id',
-          $this->tableName,
-          ['parent_id'],
-          $this->tableName,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
-        );
-
-        $this->addForeignKey(
-          'FK_Comment_CreatedBy__Identity_Id',
-          $this->tableName,
-          ['created_by'],
-          $this->tableIdentity,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
-        );
-
-        $this->addForeignKey(
-          'FK_Comment_UpdatedBy__Identity_Id',
-          $this->tableName,
-          ['updated_by'],
-          $this->tableIdentity,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
-        );
-
-        $this->createIndex('IDX_Comment__TypeId_TypeItemId', $this->tableName, ['type_id', 'type_item_id']);
-        $this->createIndex('IDX_Comment__Status', $this->tableName, ['status']);
     }
 
     /**

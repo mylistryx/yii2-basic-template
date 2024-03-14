@@ -8,6 +8,7 @@ use yii\db\Migration;
 class m240301_094151_create_table_identity_token extends Migration
 {
     public string $tableName = '{{%identity_token}}';
+    public string $tableIdentity = '{{%identity}}';
 
     /**
      * {@inheritdoc}
@@ -15,43 +16,22 @@ class m240301_094151_create_table_identity_token extends Migration
     public function safeUp()
     {
         $this->createTable($this->tableName, [
-          'id' => $this->primaryKey(),
-          'email' => $this->integer()->null(),
-          'created_at' => $this->dateTime()->notNull(),
+            'id'          => $this->primaryKey(),
+            'identity_id' => $this->integer()->notNull(),
+            'token'       => $this->string()->unique(),
+            'type'        => $this->integer()->notNull(),
+            'created_at'  => $this->dateTime()->notNull(),
         ]);
 
         $this->addForeignKey(
-          'FK_Comment_ParentId__Comment_Id',
-          $this->tableName,
-          ['parent_id'],
-          $this->tableName,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
+            'FK_IdentityToken_IdentityId__Identity_Id',
+            $this->tableName,
+            ['identity_id'],
+            $this->tableIdentity,
+            ['id'],
+            'CASCADE',
+            'CASCADE',
         );
-
-        $this->addForeignKey(
-          'FK_Comment_CreatedBy__Identity_Id',
-          $this->tableName,
-          ['created_by'],
-          $this->tableIdentity,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
-        );
-
-        $this->addForeignKey(
-          'FK_Comment_UpdatedBy__Identity_Id',
-          $this->tableName,
-          ['updated_by'],
-          $this->tableIdentity,
-          ['id'],
-          'CASCADE',
-          'CASCADE'
-        );
-
-        $this->createIndex('IDX_Comment__TypeId_TypeItemId', $this->tableName, ['type_id', 'type_item_id']);
-        $this->createIndex('IDX_Comment__Status', $this->tableName, ['status']);
     }
 
     /**
@@ -59,6 +39,7 @@ class m240301_094151_create_table_identity_token extends Migration
      */
     public function safeDown()
     {
+        $this->dropIndex('FK_IdentityToken_IdentityId__Identity_Id', $this->tableName);
         $this->dropTable($this->tableName);
     }
 }
