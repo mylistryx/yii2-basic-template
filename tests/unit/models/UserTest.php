@@ -3,10 +3,11 @@
 namespace tests\unit\models;
 
 use app\models\Identity;
+use Codeception\Test\Unit;
 
-class UserTest extends \Codeception\Test\Unit
+class UserTest extends Unit
 {
-    public function testFindUserById()
+    public function testFindUserById(): void
     {
         verify($user = Identity::findIdentity(100))->notEmpty();
         verify($user->username)->equals('admin');
@@ -14,7 +15,7 @@ class UserTest extends \Codeception\Test\Unit
         verify(Identity::findIdentity(999))->empty();
     }
 
-    public function testFindUserByAccessToken()
+    public function testFindUserByAccessToken(): void
     {
         verify($user = Identity::findIdentityByAccessToken('100-token'))->notEmpty();
         verify($user->username)->equals('admin');
@@ -22,7 +23,7 @@ class UserTest extends \Codeception\Test\Unit
         verify(Identity::findIdentityByAccessToken('non-existing'))->empty();
     }
 
-    public function testFindUserByUsername()
+    public function testFindUserByUsername(): void
     {
         verify($user = Identity::findByUsername('admin'))->notEmpty();
         verify(Identity::findByUsername('not-admin'))->empty();
@@ -31,14 +32,14 @@ class UserTest extends \Codeception\Test\Unit
     /**
      * @depends testFindUserByUsername
      */
-    public function testValidateUser()
+    public function testValidateUser(): void
     {
         $user = Identity::findByUsername('admin');
         verify($user->validateAuthKey('test100key'))->notEmpty();
         verify($user->validateAuthKey('test102key'))->empty();
 
         verify($user->validatePassword('admin'))->notEmpty();
-        verify($user->validatePassword('123456'))->empty();        
+        verify($user->validatePassword('123456'))->empty();
     }
 
 }

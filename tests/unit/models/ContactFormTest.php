@@ -3,24 +3,23 @@
 namespace tests\unit\models;
 
 use app\forms\ContactForm;
+use Codeception\Test\Unit;
+use UnitTester;
 use yii\mail\MessageInterface;
 
-class ContactFormTest extends \Codeception\Test\Unit
+class ContactFormTest extends Unit
 {
-    /**
-     * @var \UnitTester
-     */
-    public $tester;
+    public UnitTester $tester;
 
-    public function testEmailIsSentOnContact()
+    public function testEmailIsSentOnContact(): void
     {
         $model = new ContactForm();
 
         $model->attributes = [
-            'name' => 'Tester',
-            'email' => 'tester@example.com',
-            'subject' => 'very important letter subject',
-            'body' => 'body of current message',
+            'name'       => 'Tester',
+            'email'      => 'tester@example.com',
+            'subject'    => 'very important letter subject',
+            'body'       => 'body of current message',
             'verifyCode' => 'testme',
         ];
 
