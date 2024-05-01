@@ -48,17 +48,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         <?= Nav::widget([
             'options' => ['class' => 'navbar-nav'],
             'items'   => [
-                ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'About', 'url' => ['/site/about']],
-                ['label' => 'Contact', 'url' => ['/site/contact']],
+                ['label' => 'Home', 'url' => ['site/index']],
+                ['label' => 'About', 'url' => ['site/about']],
+                ['label' => 'Contact', 'url' => ['site/contact']],
             ],
         ]) ?>
         <?= Nav::widget([
             'options' => ['class' => ['navbar-nav', 'ms-auto']],
             'items'   => [
                 Yii::$app->user->isGuest
-                    ? ['label' => 'Login', 'url' => ['/site/login']]
-                    : ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout'], 'linkOptions' => ['data-method' => 'post']],
+                    ? ['label' => 'Login', 'url' => ['auth/index']]
+                    : ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['auth/logout'], 'linkOptions' => ['data-method' => 'post']],
             ],
         ]) ?>
         <?php NavBar::end(); ?>

@@ -13,7 +13,7 @@ class Identity extends BaseObject implements IdentityInterface
     public ?string $authKey = null;
     public ?string $accessToken = null;
 
-    private static array $users = [
+    private static array $identityList = [
         '100' => [
             'id'          => '100',
             'username'    => 'admin',
@@ -32,14 +32,14 @@ class Identity extends BaseObject implements IdentityInterface
 
     public static function findIdentity($id): ?static
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        return isset(self::$identityList[$id]) ? new static(self::$identityList[$id]) : null;
     }
 
     public static function findIdentityByAccessToken($token, $type = null): ?static
     {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
+        foreach (self::$identityList as $identity) {
+            if ($identity['accessToken'] === $token) {
+                return new static($identity);
             }
         }
 
@@ -48,9 +48,9 @@ class Identity extends BaseObject implements IdentityInterface
 
     public static function findByUsername($username): ?static
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
+        foreach (self::$identityList as $identity) {
+            if (strcasecmp($identity['username'], $username) === 0) {
+                return new static($identity);
             }
         }
 

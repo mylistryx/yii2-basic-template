@@ -1,10 +1,12 @@
 <?php
 
+use app\models\Identity;
+
 class LoginFormCest
 {
     public function _before(FunctionalTester $I): void
     {
-        $I->amOnRoute('site/login');
+        $I->amOnRoute('auth/index');
     }
 
     public function openLoginPage(FunctionalTester $I): void
@@ -23,7 +25,7 @@ class LoginFormCest
     // demonstrates `amLoggedInAs` method
     public function internalLoginByInstance(FunctionalTester $I): void
     {
-        $I->amLoggedInAs(\app\models\Identity::findByUsername('admin'));
+        $I->amLoggedInAs(Identity::findByUsername('admin'));
         $I->amOnPage('/');
         $I->see('Logout (admin)');
     }

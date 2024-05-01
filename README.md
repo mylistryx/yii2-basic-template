@@ -26,6 +26,7 @@ DIRECTORY STRUCTURE
       models/             contains model classes
       runtime/            contains files generated during runtime
       tests/              contains various tests for the basic application
+      traits/             contains various traits to use in project
       vendor/             contains dependent 3rd-party packages
       views/              contains view files for the Web application
       web/                contains the entry script and Web resources
@@ -34,7 +35,7 @@ DIRECTORY STRUCTURE
 REQUIREMENTS
 ------------
 
-The minimum requirement by this project template that your Web server supports PHP 7.4.
+The minimum requirement by this project template that your Web server supports PHP 8.3.
 
 
 INSTALLATION
