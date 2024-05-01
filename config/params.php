@@ -6,4 +6,6 @@ return [
     'app.senderName'  => 'Example.com mailer',
 
     'identity.rememberMeDuration' => 60 * 60 * 24 * 30,
+    'identity.minPasswordLength'  => 6,
+    'identity.maxPasswordLength'  => 32,
 ];
