@@ -62,6 +62,7 @@ $config = [
                 'about'   => 'site/about',
                 'contact' => 'site/contact',
                 'login'   => 'site/login',
+                'logout'  => 'site/logout',
             ],
         ],
     ],
