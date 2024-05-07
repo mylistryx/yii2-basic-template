@@ -2,81 +2,123 @@
 
 namespace app\models;
 
-use yii\base\BaseObject;
-use yii\web\IdentityInterface;
+use app\components\behaviors\DateTimeBehavior;
+use DateTimeImmutable;
+use Yii;
+use yii\base\Exception;
+use yii\behaviors\TimestampBehavior;
 
-class Identity extends BaseObject implements IdentityInterface
+/**
+ * {@inheritDoc}
+ */
+class Identity extends BaseIdentity
 {
-    public null|int|string $id = null;
-    public ?string $username = null;
-    public ?string $password = null;
-    public ?string $authKey = null;
-    public ?string $accessToken = null;
+    public const string SCENARIO_REQUEST_SIGNUP = 'request-signup';
+    public const string SCENARIO_RESEND_EMAIL_CONFIRMATION_TOKEN = 'resend-email-confirmation-token';
+    public const string SCENARIO_CONFIRM_EMAIL = 'confirm-email';
+    public const string SCENARIO_REQUEST_PASSWORD_RESET = 'request-password-reset';
+    public const string SCENARIO_RESET_PASSWORD = 'reset-password';
 
-    private static array $identityList = [
-        '100' => [
-            'id'          => '100',
-            'username'    => 'admin',
-            'password'    => 'admin',
-            'authKey'     => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id'          => '101',
-            'username'    => 'demo',
-            'password'    => 'demo',
-            'authKey'     => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
-    public static function findIdentity($id): ?static
+    public static function tableName(): string
     {
-        return isset(self::$identityList[$id]) ? new static(self::$identityList[$id]) : null;
+        return 'identity';
     }
 
-    public static function findIdentityByAccessToken($token, $type = null): ?static
+    public function behaviors(): array
     {
-        foreach (self::$identityList as $identity) {
-            if ($identity['accessToken'] === $token) {
-                return new static($identity);
-            }
-        }
-
-        return null;
-    }
-
-    public static function findByUsername($username): ?static
-    {
-        foreach (self::$identityList as $identity) {
-            if (strcasecmp($identity['username'], $username) === 0) {
-                return new static($identity);
-            }
-        }
-
-        return null;
-    }
-
-    public function getId(): int|string
-    {
-        return $this->id;
+        return [
+            'TimeStamp' => [
+                'class' => TimestampBehavior::class,
+                'value' => (new DateTimeImmutable())->format('Y-m-d H:i:s'),
+            ],
+            'DateTime'  => [
+                'class' => DateTimeBehavior::class,
+            ],
+        ];
     }
 
     /**
-     * {@inheritdoc}
+     * @throws Exception
      */
-    public function getAuthKey(): ?string
+    public function rules(): array
     {
-        return $this->authKey;
+        return [
+            [['email'], 'required'],
+            [['email'], 'email'],
+            ['auth_key', 'default', 'value' => Yii::$app->security->generateRandomString()],
+            ['access_token', 'default', 'value' => Yii::$app->security->generateRandomString()],
+            [
+                ['email_confirmation_token'],
+                'required',
+                'on' => [
+                    self::SCENARIO_REQUEST_SIGNUP,
+                    self::SCENARIO_RESEND_EMAIL_CONFIRMATION_TOKEN,
+                ],
+            ],
+            [
+                'email_confirmation_token',
+                'compare',
+                'value' => null,
+                'on'    => [
+                    self::SCENARIO_CONFIRM_EMAIL,
+                ],
+            ],
+            [
+                'password_reset_token',
+                'required',
+                'on' => [
+                    self::SCENARIO_REQUEST_PASSWORD_RESET,
+                ],
+            ],
+            [
+                'password_reset_token',
+                'compare',
+                'value' => null,
+                'on'    => [
+                    self::SCENARIO_RESET_PASSWORD,
+                ],
+            ],
+        ];
     }
 
-    public function validateAuthKey($authKey): bool
+    public function scenarios(): array
     {
-        return $this->authKey === $authKey;
+        return array_merge(parent::scenarios(), [
+            self::SCENARIO_REQUEST_SIGNUP,
+            self::SCENARIO_RESEND_EMAIL_CONFIRMATION_TOKEN,
+            self::SCENARIO_CONFIRM_EMAIL,
+            self::SCENARIO_REQUEST_PASSWORD_RESET,
+            self::SCENARIO_RESET_PASSWORD,
+        ]);
     }
 
-    public function validatePassword(string $password): bool
+    public function attributeLabels(): array
     {
-        return $this->password === $password;
+        return [
+            'id'         => 'ID',
+            'email'      => 'Email',
+            'password'   => 'Password',
+            'auth_key'   => 'Auth Key',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ];
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function generateToken(string $attribute): void
+    {
+        $this->$attribute = Yii::$app->security->generateRandomString();
+    }
+
+    public function resetToken(string $attribute): void
+    {
+        $this->$attribute = null;
+    }
+
+    public function isActive(): bool
+    {
+        return $this->email_confirmation_token === null;
     }
 }

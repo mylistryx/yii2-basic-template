@@ -2,6 +2,9 @@
 
 namespace app\traits;
 
+/**
+ * @method static cases(): array
+ */
 trait EnumValuesTrait
 {
     public static function values(): array

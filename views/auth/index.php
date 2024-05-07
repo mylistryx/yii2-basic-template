@@ -3,10 +3,10 @@
 /**
  * @var View $this
  * @var ActiveForm $form
- * @var LoginForm $model
+ * @var \app\forms\auth\LoginForm $model
  */
 
-use app\forms\LoginForm;
+use app\forms\auth\LoginForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\web\View;

@@ -8,4 +8,7 @@ return [
     'identity.rememberMeDuration' => 60 * 60 * 24 * 30,
     'identity.minPasswordLength'  => 6,
     'identity.maxPasswordLength'  => 32,
+
+    'identity.emailConfirmationTimeout' => 60 * 5,
+    'identity.passwordResetTimeout'     => 60 * 5,
 ];

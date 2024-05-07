@@ -2,6 +2,9 @@
 
 namespace app\traits;
 
+/**
+ * @method static cases(): array
+ */
 trait EnumNamesTrait
 {
     public static function names(): array

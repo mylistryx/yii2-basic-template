@@ -1,6 +1,6 @@
 <?php
 
-namespace app\forms;
+namespace app\forms\auth;
 
 use app\models\Identity;
 use Yii;
