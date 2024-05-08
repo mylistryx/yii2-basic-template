@@ -3,15 +3,17 @@
 namespace app\forms\passwordReset;
 
 use Yii;
-use yii\base\Model;
+use app\components\Model;
 
 class ResetPasswordForm extends Model
 {
     public ?string $password = null;
     public ?string $passwordConfirmation = null;
 
-    public function __construct(public readonly string $token, $config = [])
-    {
+    public function __construct(
+        public readonly string $token,
+                               $config = [],
+    ) {
         parent::__construct($config);
     }
 

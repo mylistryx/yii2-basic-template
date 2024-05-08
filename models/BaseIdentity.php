@@ -3,11 +3,9 @@
 namespace app\models;
 
 use app\components\ActiveRecord;
-use app\enums\IdentityStatusEnum;
 use DateTimeImmutable;
 use Yii;
 use yii\base\Exception;
-use yii\base\InvalidArgumentException;
 use yii\web\IdentityInterface;
 
 /**
@@ -21,11 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property-read DateTimeImmutable $createdAt
- * @property-read DateTimeImmutable $updatedAt
  * @property-read string $authKey
- *
- * @property-write string $password
  */
 abstract class BaseIdentity extends ActiveRecord implements IdentityInterface
 {
@@ -52,13 +46,5 @@ abstract class BaseIdentity extends ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey): bool
     {
         return $this->auth_key === $authKey;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function setPassword(string $password): void
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 }

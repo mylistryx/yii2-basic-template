@@ -5,6 +5,10 @@ namespace app\components\behaviors;
 use DateTimeImmutable;
 use yii\base\Behavior;
 
+/**
+ * @property-read DateTimeImmutable $createdAt
+ * @property-read DateTimeImmutable $updatedAt
+ */
 class DateTimeBehavior extends Behavior
 {
     public string $format = 'Y-m-d H:i:s';
@@ -13,12 +17,15 @@ class DateTimeBehavior extends Behavior
         'updatedAt' => 'updated_at',
     ];
 
-    public function __get($name)
+    public function getCreatedAt(): DateTimeImmutable
     {
-        if (array_key_exists($name, $this->attributes)) {
-            $value = $this->owner->{$this->attributes[$name]};
-            return (new DateTimeImmutable())->createFromFormat($this->format, $value);
-        }
-        parent::__get($name);
+        $value = $this->owner->created_at;
+        return DateTimeImmutable::createFromFormat($this->format, $value);
+    }
+
+    public function getUpdatedAt(): DateTimeImmutable
+    {
+        $value = $this->owner->updated_at;
+        return DateTimeImmutable::createFromFormat($this->format, $value);
     }
 }

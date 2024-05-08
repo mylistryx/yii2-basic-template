@@ -1,13 +1,13 @@
 <?php
 
-namespace app\providers;
+namespace app\domain\providers;
 
 use Yii;
-use yii\base\Component;
+use yii\base\Security;
 
 class SecurityProvider implements ProviderInterface
 {
-    public function provide(): Component
+    public function provide(): Security
     {
         return Yii::$app->security;
     }

@@ -1,13 +1,13 @@
 <?php
 
-namespace app\providers;
+namespace app\domain\providers;
 
 use Yii;
-use yii\base\Component;
+use yii\mail\MailerInterface;
 
 class MailerProvider implements ProviderInterface
 {
-    public function provide(): Component
+    public function provide(): MailerInterface
     {
         return Yii::$app->mailer;
     }

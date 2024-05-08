@@ -2,8 +2,8 @@
 
 namespace app\forms\signup;
 
+use app\components\Model;
 use app\models\Identity;
-use yii\base\Model;
 
 class ResendEmailConfirmationTokenForm extends Model
 {

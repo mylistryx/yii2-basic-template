@@ -3,7 +3,8 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\exceptions\ValidationException;
+use app\forms\signup\ConfirmEmailForm;
+use app\forms\signup\ResendEmailConfirmationTokenForm;
 use app\forms\signup\SignupRequestForm;
 use app\services\IdentitySignupService;
 use Throwable;
@@ -12,25 +13,22 @@ use yii\web\Response;
 
 final class SignupController extends WebController
 {
-    public function __construct($id, $module, private readonly IdentitySignupService $identityService, $config = [])
-    {
+    public function __construct(
+        $id,
+        $module,
+        private readonly IdentitySignupService $signupService,
+        $config = [],
+    ) {
         parent::__construct($id, $module, $config);
     }
 
     public function actionRequest(): Response
     {
-        $model = new SignupRequestForm([
-            'scenario' => SignupRequestForm::SCENARIO_REQUEST_SIGNUP,
-        ]);
+        $model = new SignupRequestForm();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load($this->post())) {
             try {
-                if (!$model->validate()) {
-                    throw new ValidationException();
-                }
-
-                $this->identityService->requestSignup($model);
-
+                $this->signupService->requestSignup($model);
                 return $this->info('Follow email instructions')->goHome();
             } catch (Throwable $exception) {
                 $this->error($exception->getMessage());
@@ -44,18 +42,11 @@ final class SignupController extends WebController
 
     public function actionResend(): Response
     {
-        $model = new SignupRequestForm([
-            'scenario' => SignupRequestForm::SCENARIO_RESEND_EMAIL_CONFIRMATION_TOKEN,
-        ]);
+        $model = new ResendEmailConfirmationTokenForm();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load($this->post())) {
             try {
-                if (!$model->validate()) {
-                    throw new ValidationException();
-                }
-
-                $this->identityService->resendConfirmationToken($model);
-
+                $this->signupService->resendConfirmationToken($model);
                 return $this->info('Follow email instructions')->goHome();
             } catch (Throwable $exception) {
                 $this->error($exception->getMessage());
@@ -63,6 +54,23 @@ final class SignupController extends WebController
         }
 
         return $this->render('resend', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionConfirm(string $token): Response
+    {
+        $model = new ConfirmEmailForm($token);
+
+        if ($model->load($this->post())) {
+            try {
+                $this->signupService->confirmEmail($model);
+                return $this->goHome();
+            } catch (Throwable $exception) {
+                $this->error($exception->getMessage());
+            }
+        }
+        return $this->render('confirm', [
             'model' => $model,
         ]);
     }

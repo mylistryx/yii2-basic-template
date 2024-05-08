@@ -12,73 +12,73 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id'         => 'basic',
-    'basePath'   => dirname(__DIR__),
-    'bootstrap'  => ['log'],
-    'aliases'    => [
+    'id' => 'basic',
+    'basePath' => dirname(__DIR__),
+    'bootstrap' => ['log'],
+    'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
     'components' => [
         'assetManager' => [
-            'basePath'        => dirname(__DIR__) . '/web/assets',
+            'basePath' => dirname(__DIR__) . '/web/assets',
             'appendTimestamp' => true,
         ],
-        'request'      => [
+        'request' => [
             'cookieValidationKey' => 'JbVbnHfCmDfMnL12l7jh9vSl6lwOwTt-',
         ],
-        'cache'        => [
-            'class' => FileCache::class,
-        ],
-        'user'         => [
-            'class'           => WebUser::class,
-            'identityClass'   => Identity::class,
+        'user' => [
+            'class' => WebUser::class,
+            'identityClass' => Identity::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer'       => [
-            'class'            => Mailer::class,
-            'viewPath'         => '@app/mail',
+        'mailer' => [
+            'class' => Mailer::class,
+            'viewPath' => '@app/mail',
             'useFileTransport' => YII_ENV_DEV,
         ],
-        'log'          => [
+        'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets'    => [
+            'targets' => [
                 [
-                    'class'  => FileTarget::class,
+                    'class' => FileTarget::class,
                     'levels' => ['error', 'warning'],
                 ],
             ],
         ],
-        'db'           => $db,
-        'urlManager'   => [
-            'enablePrettyUrl'     => true,
-            'showScriptName'      => false,
+        'db' => $db,
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
             'enableStrictParsing' => true,
-            'rules'               => [
-                ''        => 'site/index',
-                'about'   => 'site/about',
+            'rules' => [
+                '' => 'site/index',
+                'about' => 'site/about',
                 'contact' => 'site/contact',
-                'login'   => 'auth/index',
-                'logout'  => 'auth/logout',
+                'login' => 'auth/index',
+                'logout' => 'auth/logout',
+                'signup' => 'signup/request',
+                'resend' => 'signup/resend',
+                'confirm' => 'signup/confirm',
             ],
         ],
     ],
-    'params'     => $params,
+    'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
-        'class'      => DebugModule::class,
+        'class' => DebugModule::class,
         'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
-        'class'      => GiiModule::class,
+        'class' => GiiModule::class,
         'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }

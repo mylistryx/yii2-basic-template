@@ -2,17 +2,18 @@
 
 namespace app\forms\signup;
 
-use app\models\Identity;
+use app\components\Model;
 use Yii;
-use yii\base\Model;
 
 class ConfirmEmailForm extends Model
 {
     public ?string $password = null;
     public ?string $passwordConfirmation = null;
 
-    public function __construct(public readonly string $token, array $config = [])
-    {
+    public function __construct(
+        public readonly string $token,
+        array                  $config = [],
+    ) {
         parent::__construct($config);
     }
 
@@ -35,7 +36,7 @@ class ConfirmEmailForm extends Model
     public function attributeLabels(): array
     {
         return [
-            'password'             => Yii::t('app', 'Password'),
+            'password' => Yii::t('app', 'Password'),
             'passwordConfirmation' => Yii::t('app', 'Confirm password'),
         ];
     }
