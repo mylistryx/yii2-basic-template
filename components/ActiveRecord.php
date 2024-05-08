@@ -2,6 +2,7 @@
 
 namespace app\components;
 
+use app\components\helpers\DateTimeHelper;
 use app\domain\exceptions\ModelSaveException;
 use app\domain\exceptions\TimeoutException;
 use app\domain\exceptions\ValidationException;
@@ -27,12 +28,11 @@ class ActiveRecord extends \yii\db\ActiveRecord
     {
         $timeout = Yii::$app->params[$paramValue];
 
-        $now = strtotime('now');
-        $lastUpdate = strtotime($attributeValue->format('Y-m-d H:i:s'));
-        $diff = $now - $lastUpdate;
+        $now = new DateTimeImmutable('now');
+        $diffInSeconds = DateTimeHelper::asSeconds($now->diff($attributeValue, true));
 
-        if ($diff < $timeout) {
-            throw new TimeoutException($timeout - $diff);
+        if ($diffInSeconds < $timeout) {
+            throw new TimeoutException($timeout - $diffInSeconds);
         }
 
         return $this;
