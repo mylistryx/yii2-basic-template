@@ -62,12 +62,12 @@ $config = [
                 'login' => 'auth/index',
                 'logout' => 'auth/logout',
 
-                'signup' => 'signup/request',
-                'resend' => 'signup/resend',
-                'confirm' => 'signup/confirm',
+                'request-signup' => 'signup/request',
+                'resend-confirmation_token' => 'signup/resend',
+                'confirm-email' => 'signup/confirm',
 
-                'password-request-reset' => 'password-reset/request',
-                'password-reset' => 'password-reset/reset',
+                'request-password-reset' => 'password-reset/request',
+                'reset-password' => 'password-reset/reset',
             ],
         ],
     ],

@@ -44,7 +44,6 @@ class Identity extends BaseIdentity
             [['email'], 'email'],
             ['auth_key', 'default', 'value' => Yii::$app->security->generateRandomString()],
             ['access_token', 'default', 'value' => Yii::$app->security->generateRandomString()],
-            ['password_hash', 'default', 'value' => Yii::$app->security->generateRandomString()],
         ];
     }
 

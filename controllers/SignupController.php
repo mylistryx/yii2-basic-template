@@ -13,10 +13,10 @@ use yii\web\Response;
 final class SignupController extends WebController
 {
     public function __construct(
-                                       $id,
-                                       $module,
+        $id,
+        $module,
         private readonly SignupService $signupService,
-                                       $config = [],
+        $config = [],
     ) {
         parent::__construct($id, $module, $config);
     }
@@ -64,7 +64,7 @@ final class SignupController extends WebController
         if ($model->load($this->post())) {
             try {
                 $this->signupService->confirmEmail($model);
-                return $this->goHome();
+                return $this->success('Now you can login using your email and password')->goHome();
             } catch (Throwable $exception) {
                 $this->error($exception->getMessage());
             }

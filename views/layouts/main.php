@@ -35,8 +35,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <header id="header">
         <?php NavBar::begin([
             'brandLabel' => Yii::$app->name,
-            'brandUrl'   => Yii::$app->homeUrl,
-            'options'    => [
+            'brandUrl' => Yii::$app->homeUrl,
+            'options' => [
                 'class' => [
                     'navbar-expand-md',
                     'navbar-dark',
@@ -47,7 +47,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         ]); ?>
         <?= Nav::widget([
             'options' => ['class' => 'navbar-nav'],
-            'items'   => [
+            'items' => [
                 ['label' => 'Home', 'url' => ['site/index']],
                 ['label' => 'About', 'url' => ['site/about']],
                 ['label' => 'Contact', 'url' => ['site/contact']],
@@ -55,10 +55,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         ]) ?>
         <?= Nav::widget([
             'options' => ['class' => ['navbar-nav', 'ms-auto']],
-            'items'   => [
+            'items' => [
+                ['label' => 'Signup', 'url' => ['signup/request'], 'visible' => Yii::$app->user->isGuest],
                 Yii::$app->user->isGuest
                     ? ['label' => 'Login', 'url' => ['auth/index']]
-                    : ['label' => 'Logout (' . Yii::$app->user->identity->username . ')', 'url' => ['auth/logout'], 'linkOptions' => ['data-method' => 'post']],
+                    : ['label' => 'Logout (' . Yii::$app->user->identity->email . ')', 'url' => ['auth/logout'], 'linkOptions' => ['data-method' => 'post']],
             ],
         ]) ?>
         <?php NavBar::end(); ?>

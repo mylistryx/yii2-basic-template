@@ -9,64 +9,37 @@ class IdentityRepository
 {
     public function findById(int|string $id, bool $thrownExceptionIfNotFound = true): ?Identity
     {
-        if ($identity = Identity::findOne(['id' => $id])) {
-            return $identity;
-        }
-
-        if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException();
-        }
-
-        return null;
+        return $this->findByCondition(['id' => $id], $thrownExceptionIfNotFound);
     }
 
     public function findByEmail(string $email, bool $thrownExceptionIfNotFound = true): ?Identity
     {
-        if ($identity = Identity::findOne(['email' => $email])) {
-            return $identity;
-        }
-
-        if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException();
-        }
-
-        return null;
+        return $this->findByCondition(['email' => $email], $thrownExceptionIfNotFound);
     }
 
     public function findByEmailConfirmationToken(string $token, bool $thrownExceptionIfNotFound = true): ?Identity
     {
-        if ($identity = Identity::findOne(['email_confirmation_token' => $token])) {
-            return $identity;
-        }
-
-        if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException();
-        }
-
-        return null;
+        return $this->findByCondition(['email_confirmation_token' => $token], $thrownExceptionIfNotFound);
     }
 
     public function findByPasswordResetToken(string $token, bool $thrownExceptionIfNotFound = true): ?Identity
     {
-        if ($identity = Identity::findOne(['password_reset_token' => $token])) {
-            return $identity;
-        }
-
-        if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException();
-        }
-
-        return null;
+        return $this->findByCondition(['password_reset_token' => $token], $thrownExceptionIfNotFound);
     }
 
     public function findByAccessToken(string $token, bool $thrownExceptionIfNotFound = true): ?Identity
     {
-        if ($identity = Identity::findOne(['access_token' => $token])) {
+        return $this->findByCondition(['access_token' => $token], $thrownExceptionIfNotFound);
+    }
+
+    private function findByCondition($condition, bool $thrownExceptionIfNotFound = true): ?Identity
+    {
+        if ($identity = Identity::findOne($condition)) {
             return $identity;
         }
 
         if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException(Identity::class);
         }
 
         return null;

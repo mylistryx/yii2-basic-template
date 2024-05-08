@@ -37,11 +37,16 @@ readonly class SignupService
     /**
      * @param SignupRequestForm $form
      * @return Identity
+     * @throws Exception
      */
     public function requestSignup(SignupRequestForm $form): Identity
     {
         $form->validateOrPanic();
-        $identity = (new Identity(['email' => $form->email]))->saveOrPanic();
+        $identity = new Identity([
+            'email' => $form->email,
+        ]);
+        $identity->generateToken('email_confirmation_token');
+        $identity->saveOrPanic();
         $this->sendConfirmationEmailOrPanic($identity);
 
         return $identity;
@@ -68,6 +73,7 @@ readonly class SignupService
      */
     public function confirmEmail(ConfirmEmailForm $form): Identity
     {
+        $form->validateOrPanic();
         $identity = $this->identityRepository->findByEmailConfirmationToken($form->token, true);
         $identity->resetToken('email_confirmation_token');
         $identity->resetToken('password_reset_token');
@@ -84,7 +90,7 @@ readonly class SignupService
             'html' => 'emailVerify-html',
             'text' => 'emailVerify-text',
         ], [
-            'verifyLink' => $this->urlManager->createAbsoluteUrl(['signup/verify-email', 'token' => $identity->email_confirmation_token]),
+            'verifyLink' => $this->urlManager->createAbsoluteUrl(['signup/confirm', 'token' => $identity->email_confirmation_token]),
         ])
             ->setTo($identity->email)
             ->setFrom([Yii::$app->params['app.senderEmail'] => Yii::$app->name . ' robot'])
