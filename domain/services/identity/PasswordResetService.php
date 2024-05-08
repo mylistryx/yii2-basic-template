@@ -65,7 +65,7 @@ readonly class PasswordResetService
             'html' => 'passwordResetToken-html',
             'text' => 'passwordResetToken-text',
         ], [
-            'verifyLink' => $this->urlManager->createAbsoluteUrl(['password-reset/reset', 'token' => $identity->password_reset_token]),
+            'resetLink' => $this->urlManager->createAbsoluteUrl(['password-reset/reset', 'token' => $identity->password_reset_token]),
         ])
             ->setTo($identity->email)
             ->setFrom([Yii::$app->params['app.senderEmail'] => Yii::$app->name . ' robot'])

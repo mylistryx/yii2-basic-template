@@ -3,21 +3,21 @@
 /**
  * @var View $this
  * @var ActiveForm $form
- * @var LoginForm $model
+ * @var RequestPasswordResetForm $model
  */
 
-use app\forms\auth\LoginForm;
+use app\forms\passwordReset\RequestPasswordResetForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\web\View;
 
-$this->title = 'Login';
+$this->title = 'Request password reset';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="auth-login">
+<div class="signup-request">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>Please fill out the following field to request password reset:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -34,19 +34,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
-
-            <?= $form->field($model, 'rememberMe')->checkbox([
-                'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            ]) ?>
-
             <div class="form-group">
                 <div>
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Request password reset', ['class' => 'btn btn-primary', 'name' => 'request-button']) ?>
                 </div>
             </div>
 
             <?php ActiveForm::end(); ?>
+
+            <div style="color:#999;">
+                You may resend confirmation token on this <?= Html::a('page', ['signup/resend']) ?>.<br>
+                To reset password use this <?= Html::a('page', ['password-reset/request']) ?>.
+            </div>
+
         </div>
     </div>
 </div>

@@ -3,7 +3,6 @@
 namespace app\forms\passwordReset;
 
 use app\components\Model;
-use app\models\Identity;
 
 class RequestPasswordResetForm extends Model
 {
@@ -14,7 +13,6 @@ class RequestPasswordResetForm extends Model
         return [
             [['email'], 'required'],
             [['email'], 'email'],
-            [['email'], 'exist', 'targetClass' => Identity::class, 'targetAttribute' => ['email'], 'skipOnError' => true],
         ];
     }
 }
