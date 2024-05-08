@@ -1,14 +1,13 @@
 <?php
 
-use yii\db\Migration;
+use app\enums\TablesEnum;
+use app\components\migrations\Migration;
 
 class m130524_201442_init extends Migration
 {
-    private string $tableName = 'identity';
-
     public function safeUp(): void
     {
-        $this->createTable($this->tableName, [
+        $this->createTable(TablesEnum::Identity->name, [
             'id' => $this->primaryKey(),
             'email' => $this->string()->notNull()->unique(),
             'auth_key' => $this->string()->notNull()->unique(),
@@ -23,6 +22,6 @@ class m130524_201442_init extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable($this->tableName);
+        $this->dropTable(TablesEnum::Identity->name);
     }
 }

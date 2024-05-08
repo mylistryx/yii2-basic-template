@@ -2,10 +2,10 @@
 
 namespace app\forms\passwordReset;
 
+use app\components\model\Form;
 use Yii;
-use app\components\Model;
 
-class ResetPasswordForm extends Model
+class ResetPasswordForm extends Form
 {
     public ?string $password = null;
     public ?string $passwordConfirmation = null;

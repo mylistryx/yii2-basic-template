@@ -2,11 +2,11 @@
 
 namespace app\forms\signup;
 
+use app\components\model\Form;
 use app\models\Identity;
 use Yii;
-use app\components\Model;
 
-class SignupRequestForm extends Model
+class SignupRequestForm extends Form
 {
     public ?string $email = null;
 

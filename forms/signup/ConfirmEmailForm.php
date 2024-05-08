@@ -2,10 +2,10 @@
 
 namespace app\forms\signup;
 
-use app\components\Model;
+use app\components\model\Form;
 use Yii;
 
-class ConfirmEmailForm extends Model
+class ConfirmEmailForm extends Form
 {
     public ?string $password = null;
     public ?string $passwordConfirmation = null;

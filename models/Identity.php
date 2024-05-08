@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use Yii;
 use yii\base\Exception;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 
 /**
  * {@inheritDoc}
@@ -75,5 +76,10 @@ class Identity extends BaseIdentity
     public function isActive(): bool
     {
         return $this->email_confirmation_token === null;
+    }
+
+    public function getProfile(): ActiveQuery
+    {
+        return $this->hasOne(IdentityProfile::class, ['user_id' => 'id']);
     }
 }
