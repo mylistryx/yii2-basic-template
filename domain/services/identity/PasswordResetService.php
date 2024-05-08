@@ -42,6 +42,8 @@ readonly class PasswordResetService
         $identity = $this->identityRepository->findByEmail($form->email);
         $identity->generateToken('password_reset_token');
         $identity->saveOrPanic();
+
+        $this->sendMail($identity);
     }
 
     /**
