@@ -1,15 +1,15 @@
 <?php
 
-namespace app\services;
+namespace app\domain\services\identity;
 
 use app\domain\providers\MailerProvider;
 use app\domain\providers\SecurityProvider;
 use app\domain\providers\UrlManagerProvider;
+use app\domain\repositories\IdentityRepository;
 use app\forms\signup\ConfirmEmailForm;
 use app\forms\signup\ResendEmailConfirmationTokenForm;
 use app\forms\signup\SignupRequestForm;
 use app\models\Identity;
-use app\repositories\IdentityRepository;
 use DomainException;
 use Yii;
 use yii\base\Exception;
@@ -17,7 +17,7 @@ use yii\base\Security;
 use yii\mail\MailerInterface;
 use yii\web\UrlManager;
 
-readonly class IdentitySignupService
+readonly class SignupService
 {
     private Security $security;
     private MailerInterface $mailer;

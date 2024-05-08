@@ -1,8 +1,8 @@
 <?php
 
-namespace app\repositories;
+namespace app\domain\repositories;
 
-use app\exceptions\EntityNotFoundException;
+use app\domain\exceptions\EntityNotFoundException;
 use app\models\Identity;
 
 class IdentityRepository

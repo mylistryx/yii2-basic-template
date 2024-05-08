@@ -1,31 +1,36 @@
 <?php
 
-namespace app\services;
+namespace app\domain\services\identity;
 
 use app\domain\providers\MailerProvider;
 use app\domain\providers\SecurityProvider;
+use app\domain\providers\UrlManagerProvider;
+use app\domain\repositories\IdentityRepository;
 use app\forms\passwordReset\RequestPasswordResetForm;
 use app\forms\passwordReset\ResetPasswordForm;
 use app\models\Identity;
-use app\repositories\IdentityRepository;
 use RuntimeException;
 use Yii;
 use yii\base\Exception;
 use yii\base\Security;
 use yii\mail\MailerInterface;
+use yii\web\UrlManager;
 
-readonly class IdentityPasswordResetService
+readonly class PasswordResetService
 {
     private MailerInterface $mailer;
     private Security $security;
+    private UrlManager $urlManager;
 
     public function __construct(
         private IdentityRepository $identityRepository,
         SecurityProvider           $securityProvider,
         MailerProvider             $mailerProvider,
+        UrlManagerProvider         $urlManagerProvider,
     ) {
         $this->mailer = $mailerProvider->provide();
         $this->security = $securityProvider->provide();
+        $this->urlManager = $urlManagerProvider->provide();
     }
 
     /**
@@ -57,6 +62,8 @@ readonly class IdentityPasswordResetService
         $mailer = $this->mailer->compose([
             'html' => 'passwordResetToken-html',
             'text' => 'passwordResetToken-text',
+        ], [
+            'verifyLink' => $this->urlManager->createAbsoluteUrl(['password-reset/reset', 'token' => $identity->password_reset_token]),
         ])
             ->setTo($identity->email)
             ->setFrom([Yii::$app->params['app.senderEmail'] => Yii::$app->name . ' robot'])

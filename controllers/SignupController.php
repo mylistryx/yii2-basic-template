@@ -3,21 +3,20 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
+use app\domain\services\identity\SignupService;
 use app\forms\signup\ConfirmEmailForm;
 use app\forms\signup\ResendEmailConfirmationTokenForm;
 use app\forms\signup\SignupRequestForm;
-use app\services\IdentitySignupService;
 use Throwable;
-use Yii;
 use yii\web\Response;
 
 final class SignupController extends WebController
 {
     public function __construct(
-        $id,
-        $module,
-        private readonly IdentitySignupService $signupService,
-        $config = [],
+                                       $id,
+                                       $module,
+        private readonly SignupService $signupService,
+                                       $config = [],
     ) {
         parent::__construct($id, $module, $config);
     }

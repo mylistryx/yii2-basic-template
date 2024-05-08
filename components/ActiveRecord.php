@@ -2,10 +2,10 @@
 
 namespace app\components;
 
-use app\exceptions\TimeoutException;
-use app\exceptions\ValidationException;
+use app\domain\exceptions\ModelSaveException;
+use app\domain\exceptions\TimeoutException;
+use app\domain\exceptions\ValidationException;
 use DateTimeImmutable;
-use RuntimeException;
 use Yii;
 
 class ActiveRecord extends \yii\db\ActiveRecord
@@ -17,12 +17,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
                 throw new ValidationException($this);
             }
 
-            $message = 'Model not saved';
-            if (YII_DEBUG) {
-                $message .= ' : ' . static ::class;
-            }
-
-            throw new RuntimeException($message);
+            throw new ModelSaveException($this);
         }
 
         return $this;

@@ -58,11 +58,16 @@ $config = [
                 '' => 'site/index',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
+
                 'login' => 'auth/index',
                 'logout' => 'auth/logout',
+
                 'signup' => 'signup/request',
                 'resend' => 'signup/resend',
                 'confirm' => 'signup/confirm',
+
+                'password-request-reset' => 'password-reset/request',
+                'password-reset' => 'password-reset/reset',
             ],
         ],
     ],

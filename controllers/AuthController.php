@@ -3,10 +3,9 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
+use app\domain\services\identity\AuthService;
 use app\forms\auth\LoginForm;
-use app\services\IdentityAuthService;
 use Throwable;
-use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -45,10 +44,10 @@ final class AuthController extends WebController
     }
 
     public function __construct(
-        $id,
-        $module,
-        private readonly IdentityAuthService $authService,
-        $config = [],
+                                     $id,
+                                     $module,
+        private readonly AuthService $authService,
+                                     $config = [],
     ) {
         parent::__construct($id, $module, $config);
     }

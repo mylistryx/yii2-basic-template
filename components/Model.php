@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use app\exceptions\ValidationException;
+use app\domain\exceptions\ValidationException;
 
 class Model extends \yii\base\Model
 {
