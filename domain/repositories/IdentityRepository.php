@@ -39,7 +39,7 @@ class IdentityRepository
         }
 
         if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException(Identity::class);
+            throw new EntityNotFoundException(Identity::class, 'Identity not found');
         }
 
         return null;
