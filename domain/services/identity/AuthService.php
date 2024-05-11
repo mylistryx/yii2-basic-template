@@ -38,7 +38,7 @@ readonly class AuthService
         $this->validatePassword($identity, $form);
         $this->webUser->login($identity, $form->rememberMe ? Yii::$app->params['identity.rememberMeDuration'] : 0);
 
-        if (YII_DEBUG) {
+        if (YII_ENV_DEV) {
             Yii::info("Identity with id $identity->id logged in");
         }
 
@@ -47,7 +47,7 @@ readonly class AuthService
 
     public function logout(bool $destroySession = true): void
     {
-        if (YII_DEBUG) {
+        if (YII_ENV_DEV) {
             $identity = $this->webUser->identity;
             Yii::info("Identity with id $identity->id logged out");
         }

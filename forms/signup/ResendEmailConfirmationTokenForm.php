@@ -2,10 +2,10 @@
 
 namespace app\forms\signup;
 
-use app\components\Model;
+use app\components\model\Form;
 use app\models\Identity;
 
-class ResendEmailConfirmationTokenForm extends Model
+class ResendEmailConfirmationTokenForm extends Form
 {
     public ?string $email = null;
 

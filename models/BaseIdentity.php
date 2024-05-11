@@ -2,10 +2,7 @@
 
 namespace app\models;
 
-use app\components\ActiveRecord;
-use DateTimeImmutable;
-use Yii;
-use yii\base\Exception;
+use app\components\model\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**

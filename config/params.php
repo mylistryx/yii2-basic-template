@@ -9,6 +9,6 @@ return [
     'identity.minPasswordLength' => 6,
     'identity.maxPasswordLength' => 32,
 
-    'identity.emailConfirmationTimeout' => YII_DEBUG ? 5 : 60 * 5,
-    'identity.passwordResetTimeout' => YII_DEBUG ? 5 : 60 * 5,
+    'identity.emailConfirmationTimeout' => YII_ENV_DEV ? 5 : 60 * 5,
+    'identity.passwordResetTimeout' => YII_ENV_DEV ? 5 : 60 * 5,
 ];

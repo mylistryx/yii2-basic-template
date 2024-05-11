@@ -2,7 +2,7 @@
 
 namespace app\domain\exceptions;
 
-use app\components\ActiveRecord;
+use app\components\model\ActiveRecord;
 use RuntimeException;
 use Throwable;
 

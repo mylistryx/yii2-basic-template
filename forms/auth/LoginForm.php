@@ -2,10 +2,10 @@
 
 namespace app\forms\auth;
 
+use app\components\model\Form;
 use Yii;
-use app\components\Model;
 
-class LoginForm extends Model
+class LoginForm extends Form
 {
     public ?string $email = null;
     public ?string $password = null;
