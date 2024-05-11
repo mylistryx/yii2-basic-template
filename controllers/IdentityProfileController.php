@@ -3,11 +3,9 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\components\user\WebUser;
 use app\domain\providers\IdentityProvider;
 use app\domain\repositories\IdentityProfileRepository;
 use app\domain\services\IdentityProfileService;
-use app\forms\identityProfile\CreateProfileForm;
 use app\forms\IdentityProfileForm;
 use Throwable;
 use yii\web\Response;
