@@ -8,5 +8,5 @@ use yii\base\Widget;
 class CommentWidget extends Widget
 {
     public ActiveRecord $targetModel;
-    public ActiveRecord;
+    public ActiveRecord $commentModel;
 }
