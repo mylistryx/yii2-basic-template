@@ -7,7 +7,7 @@ networks:
 volumes:
   mysql_data:
   composer_data:
-  pg_data:
+#  pg_data:
   redis_data:
 
 services:
