@@ -1,9 +1,71 @@
-version: '2'
+name: yii2basic
+
+networks:
+  primary:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  composer_data:
+  pg_data:
+  redis:
+
 services:
   php:
-    image: yiisoftware/yii2-php:7.4-apache
-    volumes:
-      - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      - ./:/app:delegated
+    container_name: php
+    image: yiisoftware/yii2-php:8.3-fpm-nginx
     ports:
-      - '8000:80'
+      - '80:80'
+    volumes:
+      - composer_data:/root/.composer/cache:delegated
+      - ./:/app:delegated
+    environment:
+      - TZ='Europe/Moscow'
+    working_dir: /app
+    networks:
+      primary:
+    depends_on:
+      - mysql
+      - pgsql
+      - redis
+
+  mysql:
+    container_name: mysql
+    image: mysql:8.4.0
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql:delegated
+    environment:
+      - MYSQL_ROOT_PASSWORD=verysecret
+      - MYSQL_DATABASE=yii2basic
+      - MYSQL_USER=yii2basic
+      - MYSQL_PASSWORD=secret
+    networks:
+      primary:
+
+  pgsql:
+    container_name: postgres
+    image: postgres:16.3
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+      - ./docker/postgres:/docker-entrypoint-initdb.d
+    environment:
+      - ALLOW_IP_RANGE=0.0.0.0/0
+      - TZ=Europe/Moscow
+      - PGTZ=Europe/Moscow
+      - POSTGRES_DB=yii2basic
+      - POSTGRES_USER=yii2basic
+      - POSTGRES_PASSWORD=secret
+    networks:
+      primary:
+
+  redis:
+    container_name: redis
+    image: redis:5
+    ports:
+      - '6379:6379'
+    networks:
+      primary:

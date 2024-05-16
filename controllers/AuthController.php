@@ -6,6 +6,8 @@ use app\components\controllers\WebController;
 use app\domain\services\identity\AuthService;
 use app\forms\auth\LoginForm;
 use Throwable;
+use Yii;
+use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Response;
@@ -52,9 +54,12 @@ final class AuthController extends WebController
         ];
     }
 
+    /**
+     * @throws InvalidConfigException
+     */
     public function actionIndex(): Response
     {
-        $model = new LoginForm();
+        $model = Yii::createObject(LoginForm::class);
 
         if ($model->load($this->post())) {
             try {

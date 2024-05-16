@@ -8,7 +8,6 @@ use app\domain\providers\SecurityProvider;
 use app\domain\repositories\IdentityRepository;
 use app\forms\auth\LoginForm;
 use app\models\Identity;
-use app\models\Identity;
 use DomainException;
 use Yii;
 use yii\base\Security;

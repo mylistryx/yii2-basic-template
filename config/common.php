@@ -20,9 +20,9 @@ $config = [
         ],
         'db' => [
             'class' => Connection::class,
-            'dsn' => 'mysql:host=127.0.0.1;dbname=yii2basic',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+            'username' => 'yii2basic',
+            'password' => 'secret',
             'charset' => 'utf8mb4',
             'enableSchemaCache' => YII_ENV_DEV === false,
             'schemaCacheDuration' => YII_ENV_DEV ? 60 : 3600 * 24,
@@ -30,6 +30,9 @@ $config = [
         ],
         'cache' => [
             'class' => FileCache::class,
+        ],
+        'redis' => [
+            'class' => Connec
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
