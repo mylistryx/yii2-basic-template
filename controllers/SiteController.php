@@ -17,11 +17,11 @@ final class SiteController extends WebController
     public function actions(): array
     {
         return [
-            'error'   => [
+            'error' => [
                 'class' => ErrorAction::class,
             ],
             'captcha' => [
-                'class'           => CaptchaAction::class,
+                'class' => CaptchaAction::class,
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];

@@ -37,6 +37,11 @@ class CoreActiveRecord extends ActiveRecord
         }
     }
 
+    public function hasUuidColumn(): bool
+    {
+        return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customUuidAttribute]);
+    }
+
     public function saveOrPanic($runValidation = true, $attributeNames = null): static
     {
         if (!parent::save($runValidation, $attributeNames)) {
@@ -110,11 +115,6 @@ class CoreActiveRecord extends ActiveRecord
     public function hasUpdatedByColumn(): bool
     {
         return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customUpdatedByAttribute]);
-    }
-
-    public function hasUuidColumn(): bool
-    {
-        return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customUuidAttribute]);
     }
 
     public function stringToDateTime(string $value, string $format = 'Y-m-d H:i:s'): DateTimeImmutable

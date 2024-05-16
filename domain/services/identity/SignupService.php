@@ -52,6 +52,23 @@ readonly class SignupService
         return $identity;
     }
 
+    private function sendConfirmationEmailOrPanic(Identity $identity): void
+    {
+        $mailer = $this->mailer->compose([
+            'html' => 'emailVerify-html',
+            'text' => 'emailVerify-text',
+        ], [
+            'verifyLink' => $this->urlManager->createAbsoluteUrl(['signup/confirm', 'token' => $identity->email_confirmation_token]),
+        ])
+            ->setTo($identity->email)
+            ->setFrom([Yii::$app->params['app.senderEmail'] => Yii::$app->name . ' robot'])
+            ->setSubject('Signup request at ' . Yii::$app->name);
+
+        if (!$mailer->send()) {
+            throw new DomainException('Error sending confirmation email');
+        }
+    }
+
     /**
      * @throws Exception
      */
@@ -82,22 +99,5 @@ readonly class SignupService
 
 
         return $identity;
-    }
-
-    private function sendConfirmationEmailOrPanic(Identity $identity): void
-    {
-        $mailer = $this->mailer->compose([
-            'html' => 'emailVerify-html',
-            'text' => 'emailVerify-text',
-        ], [
-            'verifyLink' => $this->urlManager->createAbsoluteUrl(['signup/confirm', 'token' => $identity->email_confirmation_token]),
-        ])
-            ->setTo($identity->email)
-            ->setFrom([Yii::$app->params['app.senderEmail'] => Yii::$app->name . ' robot'])
-            ->setSubject('Signup request at ' . Yii::$app->name);
-
-        if (!$mailer->send()) {
-            throw new DomainException('Error sending confirmation email');
-        }
     }
 }

@@ -46,19 +46,6 @@ readonly class PasswordResetService
         $this->sendMail($identity);
     }
 
-    /**
-     * @throws Exception
-     */
-    public function resetPassword(ResetPasswordForm $form): void
-    {
-        $form->validateOrPanic();
-        $identity = $this->identityRepository->findByPasswordResetToken($form->token);
-        $identity->password_hash = $this->security->generatePasswordHash($form->password);
-        $identity->resetToken('email_confirmation_token');
-        $identity->resetToken('password_reset_token');
-        $identity->saveOrPanic();
-    }
-
     private function sendMail(Identity $identity): void
     {
         $mailer = $this->mailer->compose([
@@ -74,5 +61,18 @@ readonly class PasswordResetService
         if (!$mailer->send()) {
             throw new RuntimeException('Error sending password reset token');
         }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function resetPassword(ResetPasswordForm $form): void
+    {
+        $form->validateOrPanic();
+        $identity = $this->identityRepository->findByPasswordResetToken($form->token);
+        $identity->password_hash = $this->security->generatePasswordHash($form->password);
+        $identity->resetToken('email_confirmation_token');
+        $identity->resetToken('password_reset_token');
+        $identity->saveOrPanic();
     }
 }

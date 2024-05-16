@@ -12,6 +12,19 @@ class IdentityRepository
         return $this->findByCondition(['id' => $id], $thrownExceptionIfNotFound);
     }
 
+    private function findByCondition($condition, bool $thrownExceptionIfNotFound = true): ?Identity
+    {
+        if ($identity = Identity::findOne($condition)) {
+            return $identity;
+        }
+
+        if ($thrownExceptionIfNotFound) {
+            throw new EntityNotFoundException(Identity::class, 'Identity not found');
+        }
+
+        return null;
+    }
+
     public function findByEmail(string $email, bool $thrownExceptionIfNotFound = true): ?Identity
     {
         return $this->findByCondition(['email' => $email], $thrownExceptionIfNotFound);
@@ -30,18 +43,5 @@ class IdentityRepository
     public function findByAccessToken(string $token, bool $thrownExceptionIfNotFound = true): ?Identity
     {
         return $this->findByCondition(['access_token' => $token], $thrownExceptionIfNotFound);
-    }
-
-    private function findByCondition($condition, bool $thrownExceptionIfNotFound = true): ?Identity
-    {
-        if ($identity = Identity::findOne($condition)) {
-            return $identity;
-        }
-
-        if ($thrownExceptionIfNotFound) {
-            throw new EntityNotFoundException(Identity::class, 'Identity not found');
-        }
-
-        return null;
     }
 }

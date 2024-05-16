@@ -47,5 +47,4 @@ $config = [
 ];
 
 
-
 return $config;

@@ -10,21 +10,6 @@ use yii\web\Response;
 
 abstract class WebController extends Controller
 {
-    protected function post(): ?array
-    {
-        return Yii::$app->request->post();
-    }
-
-    protected function isAjax(): bool
-    {
-        return Yii::$app->request->isAjax;
-    }
-
-    protected function isPost(): bool
-    {
-        return Yii::$app->request->isPost;
-    }
-
     public function queryParams(): ?array
     {
         return Yii::$app->request->queryParams;
@@ -58,10 +43,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function success(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('success', $message, $category, $params, $removeAfterAccess);
 
@@ -92,10 +77,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function primary(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('primary', $message, $category, $params, $removeAfterAccess);
 
@@ -106,10 +91,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function secondary(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('secondary', $message, $category, $params, $removeAfterAccess);
 
@@ -120,10 +105,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function info(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('info', $message, $category, $params, $removeAfterAccess);
 
@@ -134,10 +119,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function error(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('danger', $message, $category, $params, $removeAfterAccess);
 
@@ -148,10 +133,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function warning(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('warning', $message, $category, $params, $removeAfterAccess);
 
@@ -162,10 +147,10 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function light(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('light', $message, $category, $params, $removeAfterAccess);
 
@@ -176,14 +161,29 @@ abstract class WebController extends Controller
      * Быстрый доступ к механизму межстраничных сообщений, удобный для использования в контроллерах.
      */
     public function dark(
-        string $message,
+        string  $message,
         ?string $category = null,
-        array $params = [],
-        bool $removeAfterAccess = true,
+        array   $params = [],
+        bool    $removeAfterAccess = true,
     ): self {
         $this->addFlash('dark', $message, $category, $params, $removeAfterAccess);
 
         return $this;
+    }
+
+    protected function post(): ?array
+    {
+        return Yii::$app->request->post();
+    }
+
+    protected function isAjax(): bool
+    {
+        return Yii::$app->request->isAjax;
+    }
+
+    protected function isPost(): bool
+    {
+        return Yii::$app->request->isPost;
     }
 
     /**

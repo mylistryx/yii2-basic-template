@@ -12,6 +12,15 @@ use yii\web\Response;
 
 final class AuthController extends WebController
 {
+    public function __construct(
+        $id,
+        $module,
+        private readonly AuthService $authService,
+        $config = [],
+    ) {
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -41,15 +50,6 @@ final class AuthController extends WebController
                 ],
             ],
         ];
-    }
-
-    public function __construct(
-                                     $id,
-                                     $module,
-        private readonly AuthService $authService,
-                                     $config = [],
-    ) {
-        parent::__construct($id, $module, $config);
     }
 
     public function actionIndex(): Response

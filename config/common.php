@@ -3,10 +3,10 @@
 use yii\caching\ArrayCache;
 use yii\caching\FileCache;
 use yii\db\Connection;
-use yii\log\FileTarget;
-use yii\symfonymailer\Mailer;
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;
+use yii\log\FileTarget;
+use yii\symfonymailer\Mailer;
 
 $config = [
     'aliases' => [

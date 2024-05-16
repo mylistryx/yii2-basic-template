@@ -1,14 +1,14 @@
 <?php
 
-use app\enums\TablesEnum;
 use app\components\migrations\Migration;
+use app\enums\TablesEnum;
 
-class m130524_201442_init extends Migration
+class m130524_201442_create_identity_table extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(TablesEnum::Identity->name, [
-            'id' => $this->uuid()->notNull(),
+        $this->createTable(TablesEnum::Identity->value, [
+            'id' => $this->primaryUuid(),
             'email' => $this->string(32)->notNull()->unique(),
             'auth_key' => $this->string(32)->notNull()->unique(),
             'access_token' => $this->string(32)->notNull()->unique(),
@@ -18,12 +18,10 @@ class m130524_201442_init extends Migration
             'created_at' => $this->dateTime()->notNull(),
             'updated_at' => $this->dateTime()->notNull(),
         ]);
-
-        $this->addPrimaryKey('PK', TablesEnum::Identity->name, 'id');
     }
 
     public function safeDown(): void
     {
-        $this->dropTable(TablesEnum::Identity->name);
+        $this->dropTable(TablesEnum::Identity->value);
     }
 }

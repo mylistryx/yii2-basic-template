@@ -18,8 +18,22 @@ class Migration extends \yii\db\Migration
         ]);
     }
 
+    public function primaryUuid(): string
+    {
+        return implode(' ', [
+            (string)$this->uuid(),
+            'PRIMARY KEY',
+        ]);
+    }
+
     public function uuid(): ColumnSchemaBuilder
     {
         return $this->string(36);
+    }
+
+    public function test()
+    {
+//        $this->bigPrimaryKey()
+        return $this->getDb()->getSchema()->createColumnSchemaBuilder('VARCHAR(36) NOT NULL PRIMARY KEY', 36);
     }
 }

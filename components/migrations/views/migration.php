@@ -4,6 +4,7 @@
  *
  * The following variables are available in this view:
  */
+
 /* @var $className string the new migration class name without namespace */
 /* @var $namespace string the new migration class namespace */
 
@@ -14,25 +15,28 @@ if (!empty($namespace)) {
 ?>
 
 use app\components\migrations\Migration;
+use app\enums\TablesEnum;
 
 /**
- * Class <?= $className . "\n" ?>
- */
+* Class <?= $className . "\n" ?>
+*/
 class <?= $className ?> extends Migration
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function safeUp(): void
-    {
+/**
+* {@inheritdoc}
+*/
+public function safeUp(): void
+{
+$this->createTable(TableEnum::, [
 
-    }
+]);
+}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function safeDown(): void
-    {
-
-    }
+/**
+* {@inheritdoc}
+*/
+public function safeDown(): void
+{
+$this->dropTable(TableEnum::);
+}
 }
