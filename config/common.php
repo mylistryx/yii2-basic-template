@@ -6,6 +6,7 @@ use yii\db\Connection as DbConnection;
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;
 use yii\log\FileTarget;
+use yii\redis\Cache as RedisCache;
 use yii\redis\Connection as RedisConnection;
 use yii\symfonymailer\Mailer;
 
@@ -30,7 +31,12 @@ $config = [
             'schemaCache' => 'cache',
         ],
         'cache' => [
-            'class' => FileCache::class,
+            'class' => RedisCache::class,
+            'redis' => [
+                'hostname' => 'redis',
+                'port' => 6379,
+                'database' => 0,
+            ]
         ],
         'redis' => [
             'class' => RedisConnection::class,
