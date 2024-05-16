@@ -3,23 +3,23 @@
 namespace app\domain\services;
 
 use app\forms\IdentityProfileForm;
-use app\models\IdentityProfile;
+use app\records\IdentityProfileAr;
 
 class IdentityProfileService
 {
-    public function findByIdentityId(int $identityId): ?IdentityProfile
+    public function findByIdentityId(int $identityId): ?IdentityProfileAr
     {
-        return IdentityProfile::find()
+        return IdentityProfileAr::find()
             ->with(['identityContacts'])
             ->where(['identity_id' => $identityId])
             ->one();
     }
 
-    public function create(IdentityProfileForm $model): IdentityProfile
+    public function create(IdentityProfileForm $model): IdentityProfileAr
     {
     }
 
-    public function update(IdentityProfileForm $model, IdentityProfile $profile): IdentityProfile
+    public function update(IdentityProfileForm $model, IdentityProfileAr $profile): IdentityProfileAr
     {
     }
 }

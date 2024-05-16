@@ -7,7 +7,7 @@ use app\models\Identity;
 
 class IdentityRepository
 {
-    public function findById(int|string $id, bool $thrownExceptionIfNotFound = true): ?Identity
+    public function findById(string $id, bool $thrownExceptionIfNotFound = true): ?Identity
     {
         return $this->findByCondition(['id' => $id], $thrownExceptionIfNotFound);
     }

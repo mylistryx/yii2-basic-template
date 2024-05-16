@@ -2,11 +2,11 @@
 
 namespace app\widgets\commentWidget;
 
-use app\components\model\ActiveRecord;
+use app\components\model\CoreActiveRecord;
 use yii\base\Widget;
 
 class CommentWidget extends Widget
 {
-    public ActiveRecord $targetModel;
-    public ActiveRecord $commentModel;
+    public CoreActiveRecord $targetModel;
+    public CoreActiveRecord $commentModel;
 }

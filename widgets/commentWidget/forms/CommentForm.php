@@ -25,6 +25,6 @@ class CommentForm extends Form
 
     public function save(): bool
     {
-        return
+        return true;
     }
 }

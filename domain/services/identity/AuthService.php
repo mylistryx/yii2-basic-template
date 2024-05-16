@@ -8,6 +8,7 @@ use app\domain\providers\SecurityProvider;
 use app\domain\repositories\IdentityRepository;
 use app\forms\auth\LoginForm;
 use app\models\Identity;
+use app\models\Identity;
 use DomainException;
 use Yii;
 use yii\base\Security;
@@ -29,13 +30,13 @@ readonly class AuthService
     public function login(LoginForm $form): Identity
     {
         $form->validateOrPanic();
+
         $identity = $this->identityRepository->findByEmail($form->email);
 
         if (!$identity->isActive()) {
             throw new DomainException('Identity email is not confirmed');
         }
 
-        $this->validatePassword($identity, $form);
         $this->webUser->login($identity, $form->rememberMe ? Yii::$app->params['identity.rememberMeDuration'] : 0);
 
         if (YII_ENV_DEV) {
