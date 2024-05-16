@@ -8,7 +8,7 @@ volumes:
   mysql_data:
   composer_data:
   pg_data:
-  redis:
+  redis_data:
 
 services:
   php:
@@ -67,5 +67,7 @@ services:
     image: redis:5
     ports:
       - '6379:6379'
+    volumes:
+      - redis_data:/data
     networks:
       primary:

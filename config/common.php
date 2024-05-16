@@ -2,10 +2,11 @@
 
 use yii\caching\ArrayCache;
 use yii\caching\FileCache;
-use yii\db\Connection;
+use yii\db\Connection as DbConnection;
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;
 use yii\log\FileTarget;
+use yii\redis\Connection as RedisConnection;
 use yii\symfonymailer\Mailer;
 
 $config = [
@@ -19,8 +20,8 @@ $config = [
             'class' => ArrayCache::class,
         ],
         'db' => [
-            'class' => Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=yii2basic',
+            'class' => DbConnection::class,
+            'dsn' => 'mysql:host=mysql;dbname=yii2basic',
             'username' => 'yii2basic',
             'password' => 'secret',
             'charset' => 'utf8mb4',
@@ -32,7 +33,10 @@ $config = [
             'class' => FileCache::class,
         ],
         'redis' => [
-            'class' => Connec
+            'class' => RedisConnection::class,
+            'hostname' => 'localhost',
+            'port' => 6379,
+            'database' => 0,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
