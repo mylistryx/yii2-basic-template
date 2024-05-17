@@ -1,7 +1,6 @@
 <?php
 
 use yii\caching\ArrayCache;
-use yii\caching\FileCache;
 use yii\db\Connection as DbConnection;
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;
@@ -77,12 +76,12 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => GiiModule::class,
-        'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*']
     ];
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => DebugModule::class,
-        'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*']
     ];
 }
 

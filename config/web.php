@@ -2,6 +2,7 @@
 
 use app\components\user\WebUser;
 use app\models\Identity;
+use yii\gii\Module;
 
 $config = [
     'id' => 'basic',
@@ -45,6 +46,5 @@ $config = [
         ],
     ],
 ];
-
 
 return $config;

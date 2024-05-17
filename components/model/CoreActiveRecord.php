@@ -25,6 +25,8 @@ class CoreActiveRecord extends ActiveRecord
     protected static string $customUpdatedAtAttribute = 'updated_at';
     protected static string $customCreatedByAttribute = 'created_by';
     protected static string $customUpdatedByAttribute = 'updated_by';
+    protected static string $customDeletedAtAttribute = 'deleted_at';
+    protected static string $customDeletedByAttribute = 'deleted_by';
 
     public function __construct($config = [])
     {
@@ -42,7 +44,7 @@ class CoreActiveRecord extends ActiveRecord
         return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customUuidAttribute]);
     }
 
-    public function saveOrPanic($runValidation = true, $attributeNames = null): static
+    public function saveOrPanic($runValidation = true, $attributeNames = null): bool
     {
         if (!parent::save($runValidation, $attributeNames)) {
             if ($this->hasErrors()) {
@@ -52,7 +54,7 @@ class CoreActiveRecord extends ActiveRecord
             throw new ModelSaveException($this);
         }
 
-        return $this;
+        return true;
     }
 
     public function checkTimeout(string $paramValue, DateTimeImmutable $attributeValue, $method = self::TIMEOUT_IN_SECONDS): static
@@ -117,8 +119,39 @@ class CoreActiveRecord extends ActiveRecord
         return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customUpdatedByAttribute]);
     }
 
+    public function hasDeletedAtAttribute(): bool
+    {
+        return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customDeletedAtAttribute]);
+    }
+
+    public function hasDeletedByAttribute(): bool
+    {
+        return isset(Yii::$app->db->schema->getTableSchema(static::tableName())->columns[self::$customDeletedByAttribute]);
+    }
+
     public function stringToDateTime(string $value, string $format = 'Y-m-d H:i:s'): DateTimeImmutable
     {
         return DateTimeImmutable::createFromFormat($format, $value);
+    }
+
+    public function delete(string $format = 'Y-m-d H:i:s'): false|int
+    {
+        if ($this->hasDeletedAtAttribute()) {
+            $deletedAtAttribute = self::$customDeletedAtAttribute;
+            $columnIsDateTime = Yii::$app->db->schema
+                    ->getTableSchema(static::tableName())
+                    ->columns[self::$customDeletedAtAttribute]
+                    ->type === SchemaAlias::TYPE_DATETIME;
+            $this->$deletedAtAttribute = $columnIsDateTime ? date($format) : time();
+
+            if ($this->hasDeletedByAttribute()) {
+                $deleteBbyAttribute = self::$customDeletedByAttribute;
+                $this->$deleteBbyAttribute = Yii::$app->user->isGuest ? null : Yii::$app->user->identity->getId();
+            }
+
+            return (int)$this->saveOrPanic();
+        }
+
+        return parent::delete();
     }
 }
