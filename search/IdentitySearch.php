@@ -16,7 +16,7 @@ class IdentitySearch extends Identity
         ];
     }
 
-    public function search($params): ActiveDataProvider
+    public function search(?array $params = null, ?string $formName = null): ActiveDataProvider
     {
         $query = Identity::find();
 
@@ -24,7 +24,7 @@ class IdentitySearch extends Identity
             'query' => $query,
         ]);
 
-        $this->load($params);
+        $this->load($params, $formName);
 
         if (!$this->validate()) {
             $query->where('0=1');

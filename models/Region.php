@@ -6,14 +6,18 @@ use app\components\model\CoreActiveRecord;
 
 /**
  * @property string $id [uuid]
+ * @property string $country_id [uuid]
+ * @property string $name [varchar(64)]
+ * @property string $name_en [varchar(64))
+ * @property int $order [int]
  * @property string $created_at [datetime]
- * @property string $created_by [datetime]
+ * @property string $updated_at [datetime]
  */
-class View extends CoreActiveRecord
+class Region extends CoreActiveRecord
 {
     public static function tableName(): string
     {
-        return 'view';
+        return 'region';
     }
 
     public function rules(): array
