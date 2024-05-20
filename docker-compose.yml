@@ -27,8 +27,8 @@ services:
       primary:
     depends_on:
       - mysql
-      - pgsql
       - redis
+#      - pgsql
 
   mysql:
     container_name: mysql
