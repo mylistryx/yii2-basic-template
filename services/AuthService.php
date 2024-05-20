@@ -1,13 +1,13 @@
 <?php
 
-namespace app\domain\services\identity;
+namespace app\services;
 
 use app\components\user\WebUser;
-use app\domain\providers\IdentityProvider;
-use app\domain\providers\SecurityProvider;
-use app\domain\repositories\IdentityRepository;
 use app\forms\auth\LoginForm;
 use app\models\Identity;
+use app\providers\IdentityProvider;
+use app\providers\SecurityProvider;
+use app\repositories\IdentityRepository;
 use DomainException;
 use Yii;
 use yii\base\Security;

@@ -3,10 +3,10 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\domain\services\identity\SignupService;
 use app\forms\signup\ConfirmEmailForm;
 use app\forms\signup\ResendEmailConfirmationTokenForm;
 use app\forms\signup\SignupRequestForm;
+use app\services\SignupService;
 use Throwable;
 use yii\web\Response;
 

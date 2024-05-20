@@ -3,9 +3,9 @@
 namespace app\components\model;
 
 use app\components\helpers\DateTimeHelper;
-use app\domain\exceptions\ModelSaveException;
-use app\domain\exceptions\TimeoutException;
-use app\domain\exceptions\ValidationException;
+use app\exceptions\ModelSaveException;
+use app\exceptions\TimeoutException;
+use app\exceptions\ValidationException;
 use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Yii;

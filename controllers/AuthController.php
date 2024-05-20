@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\domain\services\identity\AuthService;
 use app\forms\auth\LoginForm;
+use app\services\AuthService;
 use Throwable;
 use Yii;
 use yii\base\InvalidConfigException;

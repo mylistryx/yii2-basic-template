@@ -1,6 +1,6 @@
 <?php
 
-namespace app\domain\providers;
+namespace app\providers;
 
 use app\components\user\WebUser;
 use Yii;

@@ -1,14 +1,14 @@
 <?php
 
-namespace app\domain\services\identity;
+namespace app\services;
 
-use app\domain\providers\MailerProvider;
-use app\domain\providers\SecurityProvider;
-use app\domain\providers\UrlManagerProvider;
-use app\domain\repositories\IdentityRepository;
 use app\forms\passwordReset\RequestPasswordResetForm;
 use app\forms\passwordReset\ResetPasswordForm;
 use app\models\Identity;
+use app\providers\MailerProvider;
+use app\providers\SecurityProvider;
+use app\providers\UrlManagerProvider;
+use app\repositories\IdentityRepository;
 use RuntimeException;
 use Yii;
 use yii\base\Exception;

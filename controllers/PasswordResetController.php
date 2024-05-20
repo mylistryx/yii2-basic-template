@@ -3,9 +3,9 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\domain\services\identity\PasswordResetService;
 use app\forms\passwordReset\RequestPasswordResetForm;
 use app\forms\passwordReset\ResetPasswordForm;
+use app\services\PasswordResetService;
 use Throwable;
 use yii\web\Response;
 

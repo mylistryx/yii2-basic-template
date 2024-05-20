@@ -3,7 +3,7 @@
 namespace app\forms\auth;
 
 use app\components\model\Form;
-use app\domain\repositories\IdentityRepository;
+use app\repositories\IdentityRepository;
 use Yii;
 
 class LoginForm extends Form

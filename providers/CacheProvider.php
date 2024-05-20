@@ -1,6 +1,6 @@
 <?php
 
-namespace app\domain\providers;
+namespace app\providers;
 
 use Yii;
 use yii\caching\FileCache;

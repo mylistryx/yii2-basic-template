@@ -2,7 +2,7 @@
 
 namespace app\components\model;
 
-use app\domain\exceptions\ValidationException;
+use app\exceptions\ValidationException;
 use yii\base\Model;
 
 abstract class Form extends Model

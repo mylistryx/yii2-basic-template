@@ -1,6 +1,6 @@
 <?php
 
-namespace app\domain\exceptions;
+namespace app\exceptions;
 
 use app\components\model\CoreActiveRecord;
 use app\components\model\Form;
