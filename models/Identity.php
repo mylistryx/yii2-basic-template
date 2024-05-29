@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\model\CoreActiveRecord;
+use app\enums\TablesEnum;
 use app\queries\IdentityQuery;
 use DateTimeImmutable;
 use Yii;
@@ -57,7 +58,7 @@ class Identity extends CoreActiveRecord implements IdentityInterface
 
     public static function tableName(): string
     {
-        return 'identity';
+        return TablesEnum::Identity->value;
     }
 
     public static function findIdentity($id): ?static
